@@ -1,0 +1,265 @@
+Project Structure
+src/
+│
+├── components/
+│      SearchBar.js
+│      UserCard.js
+│
+├── App.js
+├── App.css
+└── index.js
+
+1.App.js
+import { useEffect, useState } from "react";
+import "./App.css";
+
+function App() {
+
+  const [search, setSearch] = useState("octocat");
+  const [debouncedSearch, setDebouncedSearch] = useState(search);
+
+  const [user, setUser] = useState(null);
+
+  const [loading, setLoading] = useState(false);
+
+  const [error, setError] = useState("");
+
+  // Debounce Search
+
+  useEffect(() => {
+
+    const timer = setTimeout(() => {
+
+      setDebouncedSearch(search);
+
+    }, 500);
+
+    return () => clearTimeout(timer);
+
+  }, [search]);
+
+  // Fetch API
+
+  useEffect(() => {
+
+    if (debouncedSearch === "") return;
+
+    setLoading(true);
+
+    setError("");
+
+    fetch(`https://api.github.com/users/${debouncedSearch}`)
+
+      .then((response) => {
+
+        if (!response.ok) {
+
+          throw new Error("User not found");
+
+        }
+
+        return response.json();
+
+      })
+
+      .then((data) => {
+
+        setUser(data);
+
+        setLoading(false);
+
+      })
+
+      .catch((err) => {
+
+        setLoading(false);
+
+        setUser(null);
+
+        setError(err.message);
+
+      });
+
+  }, [debouncedSearch]);
+
+  return (
+
+    <div className="container">
+
+      <h1>GitHub User Search</h1>
+
+      <input
+
+        type="text"
+
+        placeholder="Search GitHub Username"
+
+        value={search}
+
+        onChange={(e) => setSearch(e.target.value)}
+
+      />
+
+      {loading && <h3>Loading...</h3>}
+
+      {error && <p className="error">{error}</p>}
+
+      {user && (
+
+        <div className="card">
+
+          <img src={user.avatar_url} alt="avatar" />
+
+          <h2>{user.name}</h2>
+
+          <p>@{user.login}</p>
+
+          <p>Followers : {user.followers}</p>
+
+          <p>Repositories : {user.public_repos}</p>
+
+          <a href={user.html_url} target="_blank" rel="noreferrer">
+            View Profile
+          </a>
+
+        </div>
+
+      )}
+
+    </div>
+
+  );
+
+}
+
+export default App;
+
+2.App.css
+*{
+
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+
+}
+
+body{
+
+background:#f5f5f5;
+
+display:flex;
+
+justify-content:center;
+
+padding:40px;
+
+}
+
+.container{
+
+background:white;
+
+padding:30px;
+
+border-radius:10px;
+
+width:400px;
+
+box-shadow:0 5px 15px rgba(0,0,0,.2);
+
+text-align:center;
+
+}
+
+input{
+
+width:100%;
+
+padding:12px;
+
+margin:20px 0;
+
+font-size:16px;
+
+border:1px solid gray;
+
+border-radius:5px;
+
+}
+
+.card{
+
+margin-top:20px;
+
+}
+
+.card img{
+
+width:140px;
+
+border-radius:50%;
+
+}
+
+.card h2{
+
+margin-top:10px;
+
+}
+
+.card p{
+
+margin:8px;
+
+}
+
+.card a{
+
+display:inline-block;
+
+margin-top:15px;
+
+text-decoration:none;
+
+background:#007bff;
+
+color:white;
+
+padding:10px 20px;
+
+border-radius:5px;
+
+}
+
+.error{
+
+color:red;
+
+font-weight:bold;
+
+}
+
+@media(max-width:500px){
+
+.container{
+
+width:100%;
+
+}
+
+}
+
+3. Debouncing Working
+useEffect(() => {
+
+const timer = setTimeout(() => {
+
+setDebouncedSearch(search);
+
+},500);
+
+return ()=>clearTimeout(timer);
+
+},[search]);
+
