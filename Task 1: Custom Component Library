@@ -1,0 +1,162 @@
+Project Structure
+custom-component-library/
+│
+├── src/
+│   ├── components/
+│   │
+│   ├── Button/
+│   │      Button.jsx
+│   │      Button.css
+│   │      Button.stories.jsx
+│   │
+│   ├── Card/
+│   │      Card.jsx
+│   │      Card.css
+│   │      Card.stories.jsx
+│   │
+│   ├── Input/
+│   │      Input.jsx
+│   │      Input.css
+│   │      Input.stories.jsx
+│   │
+│   ├── Modal/
+│   │      Modal.jsx
+│   │      Modal.css
+│   │      Modal.stories.jsx
+│   │
+│   └── index.js
+│
+├── package.json
+└── README.md
+
+Button Component
+1. Button.jsx
+import "./Button.css";
+
+function Button({ label, variant = "primary", onClick }) {
+  return (
+    <button
+      className={`btn ${variant}`}
+      onClick={onClick}
+      aria-label={label}
+    >
+      {label}
+    </button>
+  );
+}
+
+export default Button;
+
+Button.css
+.btn{
+padding:12px 24px;
+border:none;
+border-radius:6px;
+cursor:pointer;
+font-size:16px;
+}
+
+.primary{
+background:#007bff;
+color:white;
+}
+
+.secondary{
+background:#6c757d;
+color:white;
+}
+
+2. Card Component
+import "./Card.css";
+
+function Card({ title, children }) {
+  return (
+    <div className="card" role="article">
+      <h3>{title}</h3>
+      {children}
+    </div>
+  );
+}
+
+export default Card;
+
+3. Input Component
+import "./Input.css";
+
+function Input({ placeholder }) {
+  return (
+    <input
+      type="text"
+      placeholder={placeholder}
+      aria-label={placeholder}
+    />
+  );
+}
+
+export default Input;
+
+4. Modal Component
+import "./Modal.css";
+
+function Modal({ open, title, children }) {
+
+if(!open) return null;
+
+return(
+
+<div className="overlay">
+
+<div
+className="modal"
+role="dialog"
+aria-modal="true"
+>
+
+<h2>{title}</h2>
+
+{children}
+
+</div>
+
+</div>
+
+);
+
+}
+
+export default Modal;
+
+Install Storybook (Bash)
+npx storybook@latest init
+
+Example Story (Java Script)
+import Button from "./Button";
+
+export default {
+
+title:"Components/Button",
+
+component:Button
+
+};
+
+export const Primary = ()=>
+
+<Button
+
+label="Click Me"
+variant="primary"
+
+/>;
+
+export const Secondary = ()=>
+
+<Button
+
+label="Secondary"
+variant="secondary"
+
+/>;
+
+Run Storybook
+npm run storybook
