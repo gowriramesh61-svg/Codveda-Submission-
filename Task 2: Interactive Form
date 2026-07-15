@@ -1,0 +1,386 @@
+index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Form Validation</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Registration Form</h1>
+
+<form id="registrationForm">
+
+<div class="input-group">
+<label>Name</label>
+<input type="text" id="name" placeholder="Enter your name">
+<small class="error" id="nameError"></small>
+</div>
+
+<div class="input-group">
+<label>Email</label>
+<input type="email" id="email" placeholder="Enter your email">
+<small class="error" id="emailError"></small>
+</div>
+
+<div class="input-group">
+<label>Phone Number</label>
+<input type="text" id="phone" placeholder="Enter phone number">
+<small class="error" id="phoneError"></small>
+</div>
+
+<div class="input-group">
+<label>Password</label>
+<input type="password" id="password" placeholder="Enter password">
+<small class="error" id="passwordError"></small>
+</div>
+
+<button type="submit">Submit</button>
+
+<p id="success"></p>
+
+</form>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
+
+style.css
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+
+background:#f2f5f9;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+height:100vh;
+
+padding:20px;
+
+}
+
+.container{
+
+background:white;
+
+padding:30px;
+
+width:100%;
+max-width:420px;
+
+border-radius:12px;
+
+box-shadow:0 10px 25px rgba(0,0,0,0.15);
+
+}
+
+h1{
+
+text-align:center;
+
+margin-bottom:25px;
+
+color:#333;
+
+}
+
+.input-group{
+
+margin-bottom:18px;
+
+}
+
+label{
+
+display:block;
+
+margin-bottom:8px;
+
+font-weight:bold;
+
+}
+
+input{
+
+width:100%;
+
+padding:12px;
+
+font-size:16px;
+
+border:2px solid #ccc;
+
+border-radius:6px;
+
+transition:.3s;
+
+}
+
+input:focus{
+
+border-color:#007BFF;
+
+outline:none;
+
+box-shadow:0 0 8px rgba(0,123,255,.3);
+
+}
+
+.error{
+
+color:red;
+
+font-size:13px;
+
+display:block;
+
+margin-top:5px;
+
+height:16px;
+
+}
+
+button{
+
+width:100%;
+
+padding:12px;
+
+background:#007BFF;
+
+color:white;
+
+font-size:16px;
+
+border:none;
+
+border-radius:6px;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+button:hover{
+
+background:#0056b3;
+
+}
+
+#success{
+
+margin-top:18px;
+
+color:green;
+
+font-weight:bold;
+
+text-align:center;
+
+}
+
+@media(max-width:500px){
+
+.container{
+
+padding:20px;
+
+}
+
+}
+
+script.jss
+const form = document.getElementById("registrationForm");
+
+const nameInput = document.getElementById("name");
+const emailInput = document.getElementById("email");
+const phoneInput = document.getElementById("phone");
+const passwordInput = document.getElementById("password");
+
+const success = document.getElementById("success");
+
+// Validation Functions
+
+function validateName(){
+
+const name = nameInput.value.trim();
+
+if(name === ""){
+
+document.getElementById("nameError").textContent =
+"Name is required";
+return false;
+
+}
+
+document.getElementById("nameError").textContent = "";
+
+return true;
+
+}
+
+function validateEmail(){
+
+const email = emailInput.value.trim();
+
+const pattern =
+/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+if(email===""){
+
+document.getElementById("emailError").textContent =
+"Email is required";
+
+return false;
+
+}
+
+if(!pattern.test(email)){
+
+document.getElementById("emailError").textContent =
+"Invalid email format";
+
+return false;
+
+}
+
+document.getElementById("emailError").textContent="";
+
+return true;
+
+}
+
+function validatePhone(){
+
+const phone = phoneInput.value.trim();
+
+const pattern = /^[0-9]{10}$/;
+
+if(phone===""){
+
+document.getElementById("phoneError").textContent =
+"Phone number is required";
+
+return false;
+
+}
+
+if(!pattern.test(phone)){
+
+document.getElementById("phoneError").textContent =
+"Phone number must contain 10 digits";
+
+return false;
+
+}
+
+document.getElementById("phoneError").textContent="";
+
+return true;
+
+}
+
+function validatePassword(){
+
+const password = passwordInput.value;
+
+const strong =
+/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[@$!%*?&]).{8,}$/;
+
+if(password===""){
+
+document.getElementById("passwordError").textContent =
+"Password is required";
+
+return false;
+
+}
+
+if(!strong.test(password)){
+
+document.getElementById("passwordError").textContent =
+"Minimum 8 characters with uppercase, lowercase, number and special character";
+
+return false;
+
+}
+
+document.getElementById("passwordError").textContent="";
+
+return true;
+
+}
+
+// Real-Time Validation
+
+nameInput.addEventListener("input", validateName);
+emailInput.addEventListener("input", validateEmail);
+phoneInput.addEventListener("input", validatePhone);
+passwordInput.addEventListener("input", validatePassword);
+
+// Focus & Blur Effects
+
+const inputs = document.querySelectorAll("input");
+
+inputs.forEach(input => {
+
+input.addEventListener("focus", function(){
+
+this.style.background="#eef7ff";
+
+});
+
+input.addEventListener("blur", function(){
+
+this.style.background="white";
+
+});
+
+});
+
+// Form Submission
+
+form.addEventListener("submit", function(e){
+
+e.preventDefault();
+
+const validName = validateName();
+const validEmail = validateEmail();
+const validPhone = validatePhone();
+const validPassword = validatePassword();
+
+if(validName && validEmail && validPhone && validPassword){
+
+success.textContent =
+"Form submitted successfully!";
+
+form.reset();
+
+}
+else{
+
+success.textContent = "";
+
+}
+
+});
+
