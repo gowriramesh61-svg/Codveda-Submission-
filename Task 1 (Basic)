@@ -1,0 +1,441 @@
+1.index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Landing Page</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+
+    <nav class="navbar">
+
+        <h2 class="logo">TechNova</h2>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#footer">Contact</a></li>
+        </ul>
+
+        <div class="menu-btn" id="menuBtn">
+            ☰
+        </div>
+
+    </nav>
+
+</header>
+
+
+<main>
+
+<section class="hero" id="home">
+
+    <div class="hero-text fade">
+
+        <h1>Build Amazing Websites</h1>
+
+        <p>
+            Responsive, modern and beautifully designed websites
+            using HTML, CSS and JavaScript.
+        </p>
+
+        <a href="#features" class="btn">
+            Explore
+        </a>
+
+    </div>
+
+</section>
+
+
+<section class="features" id="features">
+
+<h2>Our Features</h2>
+
+<div class="feature-container">
+
+<div class="card fade">
+
+<h3>Responsive Design</h3>
+
+<p>
+Looks perfect on mobile, tablet and desktop devices.
+</p>
+
+</div>
+
+<div class="card fade">
+
+<h3>Fast Performance</h3>
+
+<p>
+Optimized layout with lightweight code.
+</p>
+
+</div>
+
+<div class="card fade">
+
+<h3>Easy Customization</h3>
+
+<p>
+Modify colors, sections and content effortlessly.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section class="about" id="about">
+
+<div class="fade">
+
+<h2>About Us</h2>
+
+<p>
+
+We develop responsive web applications with modern UI
+and clean code practices. Our goal is to create engaging
+digital experiences.
+
+</p>
+
+</div>
+
+</section>
+
+</main>
+
+
+<footer id="footer">
+
+<p>
+
+© 2026 TechNova. All Rights Reserved.
+
+</p>
+
+</footer>
+
+<script src="script.js"></script>
+
+
+
+</body>
+</html>
+2. style.css
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+line-height:1.6;
+background:#f8f9fa;
+}
+
+/* Navbar */
+
+.navbar{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+padding:18px 8%;
+background:#222;
+color:white;
+
+position:fixed;
+width:100%;
+top:0;
+z-index:1000;
+
+}
+
+.logo{
+font-size:28px;
+}
+
+.nav-links{
+
+display:flex;
+list-style:none;
+gap:30px;
+
+}
+
+.nav-links a{
+
+color:white;
+text-decoration:none;
+transition:.3s;
+
+}
+
+.nav-links a:hover{
+color:#00bfff;
+}
+
+.menu-btn{
+
+display:none;
+font-size:30px;
+cursor:pointer;
+
+}
+
+/* Hero */
+
+.hero{
+
+height:100vh;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+text-align:center;
+
+padding:20px;
+
+background:linear-gradient(135deg,#4facfe,#00f2fe);
+
+color:white;
+
+}
+
+.hero h1{
+
+font-size:3rem;
+
+margin-bottom:20px;
+
+}
+
+.hero p{
+
+max-width:650px;
+
+margin:auto;
+
+margin-bottom:30px;
+
+}
+
+.btn{
+
+padding:12px 28px;
+
+background:white;
+
+color:#333;
+
+text-decoration:none;
+
+border-radius:30px;
+
+font-weight:bold;
+
+transition:.4s;
+
+}
+
+.btn:hover{
+
+background:#222;
+
+color:white;
+
+}
+
+/* Features */
+
+.features{
+
+padding:80px 8%;
+
+text-align:center;
+
+}
+
+.feature-container{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+
+gap:25px;
+
+margin-top:40px;
+
+}
+
+.card{
+
+background:white;
+
+padding:30px;
+
+border-radius:12px;
+
+box-shadow:0 5px 15px rgba(0,0,0,.15);
+
+transition:.4s;
+
+}
+
+.card:hover{
+
+transform:translateY(-10px);
+
+}
+
+/* About */
+
+.about{
+
+padding:80px 8%;
+
+text-align:center;
+
+background:#eaf7ff;
+
+}
+
+.about p{
+
+max-width:700px;
+
+margin:auto;
+
+margin-top:20px;
+
+}
+
+/* Footer */
+
+footer{
+
+background:#222;
+
+color:white;
+
+text-align:center;
+
+padding:20px;
+
+}
+
+/* Fade Animation */
+
+.fade{
+
+opacity:0;
+
+transform:translateY(40px);
+
+transition:1s;
+
+}
+
+.fade.show{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+/* Mobile */
+
+@media(max-width:768px){
+
+.nav-links{
+
+position:absolute;
+
+top:70px;
+left:0;
+
+background:#222;
+
+width:100%;
+
+flex-direction:column;
+
+display:none;
+
+text-align:center;
+
+padding:20px 0;
+
+}
+
+.nav-links.active{
+display:flex;
+}
+
+.menu-btn{
+display:block;
+}
+
+.hero h1{
+font-size:2.2rem;
+}
+
+.hero p{
+font-size:16px;
+}
+
+}
+
+3.script.jss
+// Mobile Menu
+
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
+
+menuBtn.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
+});
+
+// Fade Animation
+
+const fades = document.querySelectorAll(".fade");
+
+window.addEventListener("scroll", () => {
+
+    fades.forEach(item => {
+
+        const top = item.getBoundingClientRect().top;
+
+        if(top < window.innerHeight - 100){
+
+            item.classList.add("show");
+
+        }
+
+    });
+
+});
+
+// Show hero immediately
+
+window.dispatchEvent(new Event("scroll"));
